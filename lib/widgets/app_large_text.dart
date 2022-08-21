@@ -4,12 +4,16 @@ class AppLargeText extends StatelessWidget {
   final double size;
   final String text;
   final Color color;
+  final FontWeight fontWeight;
+  final double letterSpacing;
 
   const AppLargeText({
     Key? key,
     this.size = 30,
     required this.text,
     this.color = Colors.black,
+    this.fontWeight = FontWeight.normal,
+    this.letterSpacing = 0,
   }) : super(key: key);
 
   @override
@@ -19,7 +23,8 @@ class AppLargeText extends StatelessWidget {
       style: TextStyle(
         fontSize: size,
         color: color,
-        fontWeight: FontWeight.w600,
+        fontWeight: fontWeight,
+        letterSpacing: letterSpacing,
       ),
     );
   }
