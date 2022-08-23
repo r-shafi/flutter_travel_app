@@ -58,14 +58,15 @@ class _WelcomePageState extends State<WelcomePage> {
                       3,
                       (sliderIndex) {
                         return Container(
-                          margin: EdgeInsets.only(bottom: 5),
+                          margin: const EdgeInsets.only(bottom: 5),
                           width: 8,
                           height: index == sliderIndex ? 25 : 8,
                           decoration: BoxDecoration(
-                              color: index == sliderIndex
-                                  ? AppColor.primary
-                                  : AppColor.primary.withOpacity(0.3),
-                              borderRadius: BorderRadius.circular(8)),
+                            color: index == sliderIndex
+                                ? AppColor.primary
+                                : AppColor.primary.withOpacity(0.3),
+                            borderRadius: BorderRadius.circular(8),
+                          ),
                         );
                       },
                     ),
