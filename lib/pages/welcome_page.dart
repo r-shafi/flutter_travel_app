@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:travel_app/cubit/cubits.dart';
 import 'package:travel_app/widgets/custom_text.dart';
-import 'package:travel_app/widgets/responsive_button.dart';
 
 class WelcomePage extends StatefulWidget {
   const WelcomePage({Key? key}) : super(key: key);
@@ -61,12 +60,20 @@ class _WelcomePageState extends State<WelcomePage> {
                         ),
                       ),
                       index == 2
-                          ? GestureDetector(
-                              onTap: () {
+                          ? ElevatedButton(
+                              onPressed: () {
                                 BlocProvider.of<AppCubits>(context)
                                     .loadPlaces();
                               },
-                              child: ResponsiveButton(width: 100),
+                              child: const Text('Get Started'),
+                              style: ButtonStyle(
+                                backgroundColor:
+                                    MaterialStateProperty.all<Color>(
+                                        Colors.white),
+                                foregroundColor:
+                                    MaterialStateProperty.all<Color>(
+                                        Colors.black),
+                              ),
                             )
                           : Container(),
                     ],
