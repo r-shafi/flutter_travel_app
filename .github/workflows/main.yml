@@ -1,4 +1,4 @@
-name: 'Build and Release APK'
+name: 'Build and Release'
 
 on:
   workflow_dispatch:
@@ -25,14 +25,7 @@ jobs:
       - run: flutter pub get
       - run: flutter build apk --split-per-abi
 
-      - name: Create Github Release
-        uses: ncipollo/release-action@v1
+      - uses: actions/upload-artifact@v1
         with:
-          artifacts: 'build/app/outputs/flutter-apk/*.apk'
-          token: ${{ secrets.PERSONAL_RELEASE_TOKEN }}
-
-      - name: Save APK to Artifacts
-        uses: actions/upload-artifact@v2
-        with:
-          name: APK
-          path: build/app/outputs/flutter-apk/*.apk
+          name: release-apk
+          path: build/app/outputs/apk/release/app-release.apk
