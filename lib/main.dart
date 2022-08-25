@@ -1,17 +1,23 @@
 import 'package:flutter/material.dart';
-import 'package:travel_app/pages/welcome_page.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:travel_app/cubit/cubit_logics.dart';
+import 'package:travel_app/cubit/cubits.dart';
+import 'package:travel_app/services/data_services.dart';
 
-void main() => runApp(App());
+void main() => runApp(const App());
 
 class App extends StatelessWidget {
   const App({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return const MaterialApp(
+    return MaterialApp(
       title: 'Travel App',
       debugShowCheckedModeBanner: false,
-      home: WelcomePage(),
+      home: BlocProvider<AppCubits>(
+        create: (context) => AppCubits(dataServices: DataServices()),
+        child: const AppCubitLogics(),
+      ),
     );
   }
 }
