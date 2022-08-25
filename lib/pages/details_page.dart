@@ -3,9 +3,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:travel_app/cubit/cubits.dart';
 import 'package:travel_app/cubit/states.dart';
 import 'package:travel_app/models/place_model.dart';
-import 'package:travel_app/widgets/app_large_text.dart';
 import 'package:travel_app/widgets/custom_button.dart';
-import 'package:travel_app/widgets/responsive_button.dart';
+import 'package:travel_app/widgets/custom_text.dart';
 
 class DetailsPage extends StatefulWidget {
   const DetailsPage({Key? key}) : super(key: key);
@@ -85,8 +84,8 @@ class _DetailsPageState extends State<DetailsPage> {
                         Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
-                            AppLargeText(text: place.name, size: 27),
-                            AppLargeText(text: '\$ ${place.price}', size: 20),
+                            CustomText(text: place.name, size: 27),
+                            CustomText(text: '\$ ${place.price}', size: 20),
                           ],
                         ),
                         const SizedBox(height: 5),
@@ -95,7 +94,7 @@ class _DetailsPageState extends State<DetailsPage> {
                             const Icon(Icons.location_on,
                                 size: 15, color: Colors.black54),
                             const SizedBox(width: 5),
-                            AppLargeText(
+                            CustomText(
                               text: place.location,
                               size: 15,
                               color: Colors.black54,
@@ -116,9 +115,9 @@ class _DetailsPageState extends State<DetailsPage> {
                           ),
                         ),
                         const SizedBox(height: 20),
-                        const AppLargeText(text: 'People', size: 20),
+                        const CustomText(text: 'People', size: 20),
                         const SizedBox(height: 5),
-                        const AppLargeText(
+                        const CustomText(
                           text: 'Number of People in Your Group',
                           size: 14,
                           color: Colors.black54,
@@ -146,24 +145,38 @@ class _DetailsPageState extends State<DetailsPage> {
                           ),
                         ),
                         const SizedBox(height: 20),
-                        const AppLargeText(text: 'Description', size: 20),
+                        const CustomText(text: 'Description', size: 20),
                         const SizedBox(height: 5),
-                        AppLargeText(
+                        CustomText(
                             text: place.description,
                             size: 14,
                             color: Colors.black54),
                         const SizedBox(height: 20),
                         Row(
-                          children: const [
-                            CustomButton(
+                          children: [
+                            const CustomButton(
                               icon: Icons.favorite_border_rounded,
                               color: Colors.black,
                             ),
-                            SizedBox(width: 10),
-                            ResponsiveButton(
-                              text: 'Book Trip Now',
-                              width: 300,
-                            )
+                            const SizedBox(width: 10),
+                            ConstrainedBox(
+                              constraints: const BoxConstraints.tightFor(
+                                width: 300,
+                                height: 50,
+                              ),
+                              child: ElevatedButton(
+                                onPressed: () {},
+                                style: ButtonStyle(
+                                  backgroundColor:
+                                      MaterialStateProperty.all<Color>(
+                                          Colors.purple),
+                                  foregroundColor:
+                                      MaterialStateProperty.all<Color>(
+                                          Colors.white),
+                                ),
+                                child: const Text('Book Now'),
+                              ),
+                            ),
                           ],
                         ),
                       ],
