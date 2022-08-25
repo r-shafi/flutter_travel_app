@@ -1,4 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:travel_app/cubit/cubits.dart';
+import 'package:travel_app/cubit/states.dart';
+import 'package:travel_app/models/place_model.dart';
 import 'package:travel_app/widgets/app_large_text.dart';
 import 'package:travel_app/widgets/custom_button.dart';
 import 'package:travel_app/widgets/responsive_button.dart';
@@ -16,9 +20,12 @@ class _DetailsPageState extends State<DetailsPage> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: SingleChildScrollView(
-        child: Container(
+    return Scaffold(body: BlocBuilder<AppCubits, CubitStates>(
+      builder: (context, state) {
+        DetailsState detailsState = state as DetailsState;
+        PlaceModel place = detailsState.place;
+
+        return Container(
           width: double.maxFinite,
           height: double.maxFinite,
           child: Stack(
@@ -28,9 +35,10 @@ class _DetailsPageState extends State<DetailsPage> {
                 child: Container(
                   height: 300,
                   width: MediaQuery.of(context).size.width,
-                  decoration: const BoxDecoration(
+                  decoration: BoxDecoration(
                     image: DecorationImage(
-                      image: AssetImage('assets/images/mountain.jpeg'),
+                      image: NetworkImage(
+                          'http://mark.bslmeiyu.com/uploads/${place.img}'),
                       fit: BoxFit.cover,
                     ),
                   ),
@@ -45,7 +53,9 @@ class _DetailsPageState extends State<DetailsPage> {
                   children: [
                     IconButton(
                       icon: const Icon(Icons.arrow_back, color: Colors.white),
-                      onPressed: () {},
+                      onPressed: () {
+                        BlocProvider.of<AppCubits>(context).goBack();
+                      },
                     ),
                     IconButton(
                       icon: const Icon(Icons.more_vert, color: Colors.white),
@@ -74,19 +84,19 @@ class _DetailsPageState extends State<DetailsPage> {
                       children: [
                         Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: const [
-                            AppLargeText(text: 'Yosemite', size: 27),
-                            AppLargeText(text: '\$ 250', size: 20),
+                          children: [
+                            AppLargeText(text: place.name, size: 27),
+                            AppLargeText(text: '\$ ${place.price}', size: 20),
                           ],
                         ),
                         const SizedBox(height: 5),
                         Row(
-                          children: const [
-                            Icon(Icons.location_on,
+                          children: [
+                            const Icon(Icons.location_on,
                                 size: 15, color: Colors.black54),
-                            SizedBox(width: 5),
+                            const SizedBox(width: 5),
                             AppLargeText(
-                              text: 'USA, California',
+                              text: place.location,
                               size: 15,
                               color: Colors.black54,
                             ),
@@ -97,7 +107,9 @@ class _DetailsPageState extends State<DetailsPage> {
                           children: List.generate(
                             5,
                             (index) => Icon(
-                              index < rating ? Icons.star : Icons.star_border,
+                              index < place.stars
+                                  ? Icons.star
+                                  : Icons.star_border,
                               size: 15,
                               color: Colors.black,
                             ),
@@ -136,9 +148,8 @@ class _DetailsPageState extends State<DetailsPage> {
                         const SizedBox(height: 20),
                         const AppLargeText(text: 'Description', size: 20),
                         const SizedBox(height: 5),
-                        const AppLargeText(
-                            text:
-                                'Yosemite National Park is in California’s Sierra Nevada mountains. It’s famed for its giant, ancient sequoia trees, and for Tunnel View, the iconic vista of towering Bridalveil Fall and the granite cliffs of El Capitan and Half Dome.',
+                        AppLargeText(
+                            text: place.description,
                             size: 14,
                             color: Colors.black54),
                         const SizedBox(height: 20),
@@ -162,8 +173,8 @@ class _DetailsPageState extends State<DetailsPage> {
               )
             ],
           ),
-        ),
-      ),
-    );
+        );
+      },
+    ));
   }
 }
