@@ -30,7 +30,7 @@ jobs:
       - run: flutter build apk --split-per-abi
 
       - name: Release APK
-        uses: ncipollo/release-action@v1
+      - uses: ncipollo/release-action@v1
         with:
           artifacts: 'build/app/outputs/apk/release/*.apk'
           token: ${{ secrets.RELEASES_TOKEN }}
