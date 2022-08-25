@@ -1,4 +1,4 @@
-name: 'Build APK'
+name: 'Build and Release APK'
 
 on:
   workflow_dispatch:
@@ -22,5 +22,15 @@ jobs:
       - uses: subosito/flutter-action@v2
         with:
           flutter-version: '3.0.5'
+
+      - name: Add Packages
       - run: flutter pub get
-      - run: flutter build apk
+
+      - name: Build APK
+      - run: flutter build apk --split-per-abi
+
+      - name: Release APK
+        uses: ncipollo/release-action@v1
+        with:
+          artifacts: 'build/app/outputs/apk/release/*.apk'
+          token: ${{ secrets.RELEASES_TOKEN }}
