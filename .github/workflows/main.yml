@@ -11,7 +11,7 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
-  runs-on: ${{ fromJSON('["ubuntu-latest", "self-hosted"]')[github.repository == 'github/docs-internal'] }}
+  runs-on: ubuntu-latest
   steps:
     - uses: actions/checkout@v3
     - uses: actions/setup-java@v2
