@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:travel_app/configs/colors.dart';
 import 'package:travel_app/cubit/cubits.dart';
-import 'package:travel_app/widgets/app_large_text.dart';
-import 'package:travel_app/widgets/app_text.dart';
+import 'package:travel_app/widgets/custom_text.dart';
 import 'package:travel_app/widgets/responsive_button.dart';
 
 class WelcomePage extends StatefulWidget {
@@ -27,7 +25,7 @@ class _WelcomePageState extends State<WelcomePage> {
             decoration: BoxDecoration(
               image: DecorationImage(
                 fit: BoxFit.cover,
-                image: AssetImage('assets/images/welcome-${index + 1}.png'),
+                image: AssetImage('assets/images/welcome-${index + 1}.jpg'),
               ),
             ),
             child: Container(
@@ -36,28 +34,41 @@ class _WelcomePageState extends State<WelcomePage> {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
+                    crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
-                      const AppLargeText(text: 'Trips'),
-                      const AppText(
-                        text: 'Mountain',
-                        size: 30,
-                      ),
                       Container(
-                        margin: const EdgeInsets.symmetric(vertical: 20),
-                        width: 250,
-                        child: const AppText(
-                          text:
-                              'The mountain sat upon the plain In his eternal chair, His observation omnifold, His inquest everywhere.',
-                          size: 14,
+                        margin: const EdgeInsets.only(bottom: 15),
+                        width: 350,
+                        child: CustomText(
+                          text: index == 0
+                              ? 'Explore the Beauty of Journey.'
+                              : index == 1
+                                  ? 'Find the Best Place to Visit.'
+                                  : 'Book Your Trip.',
+                          color: Colors.white,
+                          size: 40,
+                          textAlign: TextAlign.center,
                         ),
                       ),
-                      GestureDetector(
-                        onTap: () {
-                          BlocProvider.of<AppCubits>(context).loadPlaces();
-                        },
-                        child: ResponsiveButton(width: 100),
+                      Container(
+                        width: 250,
+                        margin: const EdgeInsets.only(bottom: 100),
+                        child: const CustomText(
+                          text:
+                              'Journey is the best way to find the best place to visit.',
+                          color: Colors.white,
+                          textAlign: TextAlign.center,
+                        ),
                       ),
+                      index == 2
+                          ? GestureDetector(
+                              onTap: () {
+                                BlocProvider.of<AppCubits>(context)
+                                    .loadPlaces();
+                              },
+                              child: ResponsiveButton(width: 100),
+                            )
+                          : Container(),
                     ],
                   ),
                   Column(
@@ -70,8 +81,8 @@ class _WelcomePageState extends State<WelcomePage> {
                           height: index == sliderIndex ? 25 : 8,
                           decoration: BoxDecoration(
                             color: index == sliderIndex
-                                ? AppColor.primary
-                                : AppColor.primary.withOpacity(0.3),
+                                ? Colors.white
+                                : Colors.white30,
                             borderRadius: BorderRadius.circular(8),
                           ),
                         );
