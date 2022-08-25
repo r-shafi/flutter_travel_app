@@ -4,7 +4,7 @@ import 'package:travel_app/configs/colors.dart';
 import 'package:travel_app/cubit/cubits.dart';
 import 'package:travel_app/cubit/states.dart';
 import 'package:travel_app/models/place_model.dart';
-import 'package:travel_app/widgets/app_large_text.dart';
+import 'package:travel_app/widgets/custom_text.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
@@ -44,9 +44,9 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                 ),
                 const Padding(
                   padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
-                  child: AppLargeText(
+                  child: CustomText(
                     text: 'Discover',
-                    letterSpacing: 2,
+                    size: 30,
                   ),
                 ),
                 Container(
@@ -57,11 +57,12 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                     labelColor: Colors.black87,
                     unselectedLabelColor: Colors.grey,
                     isScrollable: true,
-                    labelPadding:
-                        const EdgeInsets.only(left: 0, bottom: 5, right: 10),
+                    labelPadding: const EdgeInsets.only(left: 0, right: 10),
                     indicatorSize: TabBarIndicatorSize.label,
-                    indicator:
-                        CircleTabIndicator(color: AppColor.primary, radius: 4),
+                    indicator: const CircleTabIndicator(
+                      color: AppColor.primary,
+                      radius: 3,
+                    ),
                     tabs: const [
                       Tab(
                         text: 'Places',
@@ -80,8 +81,9 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                   height: 280,
                   child: TabBarView(
                     controller: _tabController,
-                    children: [
-                      ListView.builder(
+                    children: List.generate(
+                      3,
+                      (index) => ListView.builder(
                         scrollDirection: Axis.horizontal,
                         itemBuilder: (context, index) {
                           return GestureDetector(
@@ -103,52 +105,38 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                                   fit: BoxFit.cover,
                                 ),
                               ),
+                              alignment: Alignment.bottomCenter,
+                              child: Container(
+                                height: 70,
+                                width: double.infinity,
+                                padding: const EdgeInsets.only(bottom: 10),
+                                decoration: BoxDecoration(
+                                  borderRadius: const BorderRadius.only(
+                                    bottomLeft: Radius.circular(10),
+                                    bottomRight: Radius.circular(10),
+                                  ),
+                                  gradient: LinearGradient(
+                                    begin: Alignment.bottomCenter,
+                                    end: Alignment.topCenter,
+                                    colors: [
+                                      Colors.black.withOpacity(0.9),
+                                      Colors.black.withOpacity(0.0),
+                                    ],
+                                  ),
+                                ),
+                                alignment: Alignment.bottomCenter,
+                                child: CustomText(
+                                  text: places[index].name,
+                                  color: Colors.white,
+                                  size: 20,
+                                ),
+                              ),
                             ),
                           );
                         },
                         itemCount: places.length,
                       ),
-                      ListView.builder(
-                        scrollDirection: Axis.horizontal,
-                        itemBuilder: (context, index) {
-                          return Container(
-                            width: 190,
-                            height: 300,
-                            margin: const EdgeInsets.only(right: 20, top: 10),
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(10),
-                              color: Colors.white,
-                              image: const DecorationImage(
-                                image:
-                                    AssetImage('assets/images/mountain.jpeg'),
-                                fit: BoxFit.cover,
-                              ),
-                            ),
-                          );
-                        },
-                        itemCount: 5,
-                      ),
-                      ListView.builder(
-                        scrollDirection: Axis.horizontal,
-                        itemBuilder: (context, index) {
-                          return Container(
-                            width: 190,
-                            height: 300,
-                            margin: const EdgeInsets.only(right: 20, top: 10),
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(10),
-                              color: Colors.white,
-                              image: const DecorationImage(
-                                image:
-                                    AssetImage('assets/images/mountain.jpeg'),
-                                fit: BoxFit.cover,
-                              ),
-                            ),
-                          );
-                        },
-                        itemCount: 5,
-                      ),
-                    ],
+                    ),
                   ),
                 ),
                 Padding(
@@ -157,12 +145,11 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: const [
-                      AppLargeText(
+                      CustomText(
                         text: 'Explore More',
                         size: 18,
-                        fontWeight: FontWeight.w600,
                       ),
-                      AppLargeText(
+                      CustomText(
                         text: 'See All',
                         size: 14,
                         color: AppColor.primary,
