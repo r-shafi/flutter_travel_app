@@ -14,6 +14,7 @@ class _WelcomePageState extends State<WelcomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.black87,
       body: PageView.builder(
         scrollDirection: Axis.vertical,
         itemCount: 3,
@@ -65,7 +66,6 @@ class _WelcomePageState extends State<WelcomePage> {
                                 BlocProvider.of<AppCubits>(context)
                                     .loadPlaces();
                               },
-                              child: const Text('Get Started'),
                               style: ButtonStyle(
                                 backgroundColor:
                                     MaterialStateProperty.all<Color>(
@@ -74,6 +74,7 @@ class _WelcomePageState extends State<WelcomePage> {
                                     MaterialStateProperty.all<Color>(
                                         Colors.black),
                               ),
+                              child: const Text('Get Started'),
                             )
                           : Container(),
                     ],
