@@ -19,6 +19,49 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
     TabController _tabController = TabController(length: 3, vsync: this);
 
     return Scaffold(
+      backgroundColor: Colors.white,
+      appBar: AppBar(
+        backgroundColor: Colors.white,
+        elevation: 0,
+        foregroundColor: Colors.black,
+        actions: const [
+          Padding(
+            padding: EdgeInsets.only(right: 20),
+            child: CircleAvatar(
+              backgroundImage: NetworkImage('https://picsum.photos/200'),
+              radius: 20,
+            ),
+          )
+        ],
+      ),
+      drawer: Drawer(
+          child: Column(
+        crossAxisAlignment: CrossAxisAlignment.stretch,
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          const DrawerHeader(
+            decoration: BoxDecoration(
+              color: Colors.red,
+            ),
+            padding: EdgeInsets.only(top: 50),
+            child: CustomText(
+              text: 'Travel App',
+              size: 30,
+              textAlign: TextAlign.center,
+            ),
+          ),
+          ListTile(
+            leading: const Icon(Icons.logout_rounded),
+            title: const CustomText(
+              text: 'Logout',
+              size: 20,
+            ),
+            onTap: () {
+              BlocProvider.of<AppCubits>(context).logout();
+            },
+          ),
+        ],
+      )),
       body: SafeArea(child: BlocBuilder<AppCubits, CubitStates>(
         builder: (context, state) {
           if (state is LoadedState) {
@@ -27,21 +70,6 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
             return Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Padding(
-                  padding:
-                      const EdgeInsets.symmetric(vertical: 10, horizontal: 20),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: const [
-                      Icon(Icons.menu),
-                      CircleAvatar(
-                        backgroundImage:
-                            NetworkImage('https://picsum.photos/200'),
-                        radius: 20,
-                      )
-                    ],
-                  ),
-                ),
                 const Padding(
                   padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
                   child: CustomText(
