@@ -17,7 +17,7 @@ jobs:
 
     steps:
       # - run: echo "TAG v${github.run_number}.0.0"
-      - run: echo "TAG $github.run_number"
+      - run: echo "TAG $github.run_attempt"
 
       - uses: actions/checkout@v1
       - name: Setup Java
