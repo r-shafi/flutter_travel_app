@@ -30,4 +30,8 @@ class AppCubits extends Cubit<CubitStates> {
   void goBack() {
     emit(LoadedState(places));
   }
+
+  void logout() {
+    emit(WelcomeState());
+  }
 }
