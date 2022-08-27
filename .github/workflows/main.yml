@@ -34,7 +34,10 @@ jobs:
   build:
     name: Build APK
     runs-on: ubuntu-latest
+
     steps:
+      - run: echo "GITHUB_REF $GITHUB_REF"
+
       - uses: actions/checkout@v1
       - name: Setup Java
         uses: actions/setup-java@v1
@@ -55,3 +58,4 @@ jobs:
         uses: ncipollo/release-action@v1
         with:
           artifacts: 'build/app/outputs/apk/release/*.apk'
+          tag: '${{ github.ref }}'
